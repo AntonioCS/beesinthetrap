@@ -11,6 +11,9 @@ bash: ## SSH into php container
 install: ## Run composer install
 	docker-compose exec $(PHP_CONTAINER) composer install
 	
+play: ## Play the game (make sure you run start and install first)
+	docker-compose exec $(PHP_CONTAINER) php main.php
+
 PHONY: help
 
 help:
