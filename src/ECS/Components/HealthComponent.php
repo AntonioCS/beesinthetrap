@@ -1,15 +1,16 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: AntonioCS
- * Date: 12/05/2019
- * Time: 18:40
- */
 
 namespace App\ECS\Components;
 
 
-class HealthComponent
-{
+use App\ECS\ComponentInterface;
 
+class HealthComponent implements ComponentInterface
+{
+    public $health = 0;
+
+    public function __construct(int $health = 100)
+    {
+        $this->health = $health;
+    }
 }

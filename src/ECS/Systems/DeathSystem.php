@@ -1,15 +1,27 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: AntonioCS
- * Date: 13/05/2019
- * Time: 06:25
- */
+
 
 namespace App\ECS\Systems;
 
 
-class DeathSystem
+use App\ECS\AbstractSystem;
+use App\ECS\Components\HealthComponent;
+use App\ECS\SystemInterface;
+
+class DeathSystem extends AbstractSystem implements SystemInterface
 {
 
+    public function update(): void
+    {
+        $entities = $this->entityManager->findByComponents(HealthComponent::class);
+
+        foreach ($entities as $e) {
+            /** @var HealthComponent $hCom */
+            $hCom = $e->getComponent(HealthComponent::class);
+
+            if ($hCom->health <= 0) {
+                $this->entityManager->remove($e);
+            }
+        }
+    }
 }
